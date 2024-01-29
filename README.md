@@ -7,7 +7,7 @@
 5. Copy the content of ``CMakeLists2.txt`` from this repository and paste it into ``$EXAMPLES_PATH/loop_functions/CMakeLists.txt``.
 6. Download the ``logging_positions`` folder from this repository and put it into ``$EXAMPLES_PATH/loop_functions/``.
 7. Download the ``manual_test.argos`` file from this repository and put it into ``$EXAMPLES_PATH/experiments/``. This is the configuration to run visual experiments. It already constains some parameters for the artificial potential fields implemented in the controller code. The parameters are read by the controller directly from this XML configuration, so you can make some changes to see how the potential behaves with different settings.
-8. Download the ``experiment.argos`` file from this repository and put it into ``$EXAMPLES_PATH/experiments/``. This is the configuration to run the experiments, without visual interface.
+8. Download the ``experiment.argos`` and ``experiment2.argos`` files from this repository and put them into ``$EXAMPLES_PATH/experiments/``. These are the configurations to run the experiments, without visual interface.
 9. Download the ``flocking_exp_LJ.argos`` file from this repository and put it into ``$EXAMPLES_PATH/experiments/``. This is the configuration to run the simulations employed by the genetic algorithm.
 10. Download and ``genetic_LJ.py`` ``manual_eval.py`` and put it into ``$EXAMPLES_PATH``. They are respectively the Python code of the genetic algorithm and a file containing some code used to evaluate the performance of the individuals of the genetic algorithm.
 11. Download ``compile.sh`` and put it into ``$EXAMPLES_PATH``. 
