@@ -1,0 +1,189 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="200"
+                ticks_per_second="10"
+                random_seed="insert_seed_here"
+                />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <footbot_acc_controller id="ffc"
+                                 library="build/controllers/footbot_acc/libfootbot_acc">
+      <actuators>
+        <range_and_bearing implementation="default"/>
+        <differential_steering implementation="default" />
+      </actuators>
+      <sensors>
+        <footbot_proximity implementation="default" show_rays="false"/>
+        <range_and_bearing implementation="medium" medium="rab" show_rays="true" packet_drop_prob="pkt_drop_here"/>
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="false"/>
+      </sensors>
+      <params>
+        <wheel_turning hard_turn_angle_threshold="90"
+                       soft_turn_angle_threshold="70"
+                       no_turn_angle_threshold="10"
+                       max_speed="7.5" />
+
+        <flocking target_distance="100"
+                  scale = "1.25"   
+                  consensus="true"
+                  stabilization="1.15"
+                  stabilization_timer="50"
+                  gamma_tolerance="0.001"
+                  cognitive_speed = "1"
+                  swarm_size="00"
+                  seed = "insert_seed_here"
+                  target_gain="0.5"
+                  noise="insert_noise_here"
+                  noise_deg="insert_noise_deg_here"
+
+                  beta_gain = "1000000"
+
+                  gain = "989.15"
+                  cutoff = "50"
+                  gabor_a = "15.12"
+
+                  _2_gain = "459.77"
+                  _2_c_a = "0.09"
+                  _2_c_r = "16.55"
+                  _2_l_a = "18.66"
+                  _2_l_r = "0.49"
+                  _2_c_ap = "1.01" 
+
+                  _6_gain = "428.09839506"
+                  gabor_p = "98.38893448"
+
+                  _LJ_gain = "87.92"
+                  _LJ_a = "12"
+                  _LJ_b = "1.79"
+
+                  _10_gain = "1.48449747"
+                  _10_C = "65.8839609"
+                  _10_Sigma = "0.57960849"
+                  _10_h = "17.8622787"
+                  _10_delta_l = "0.00162512022"
+                  _10_delta_r = "0.00310252893"
+                  _10_k = "64.9822564"
+
+                  _12_gain = "100"
+                  _12_a = "97.02"
+                  _12_b = "0.52"
+                  _12_c = "2.06" 
+
+                  _16_a = "0.5"
+                  _16_b = "5"
+                  _16_c1 = "1"
+                  _16_c2 = "1"
+                  
+                  />
+      </params>
+    </footbot_acc_controller>
+  </controllers>
+
+  <!-- ****************** -->
+  <!-- * Loop functions * -->
+  <!-- ****************** -->
+  <loop_functions library="build/loop_functions/logging_positions/liblogging_positions"
+                  label="logging_positions" 
+                  file="insert_filename_here"
+                  length="0"
+                  halve="false"/>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="16,16,1" center="0,0,0.5">
+    <light id="light"
+           position="0,0,0.5"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="1.0"
+           medium="leds" />
+
+    <!--
+        You can distribute entities randomly. Here, we distribute
+        the entities in this way:
+        - the position is uniformly distributed on the ground, in the
+          square whose corners are (4,4) and (5,5)
+        - the orientations are non-zero only when rotating around Z and
+          chosen from a gaussian distribution, whose mean is zero degrees
+          and standard deviaion is 360 degrees.
+    -->
+
+    <distribute>
+      <position method="uniform" min="-6,-6,0" max="6,6,0"/>
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
+      <entity quantity="insert_quantity_here" max_trials="1000">
+        <foot-bot id="fb" omnidirectional_camera_aperture="180" rab_range="1.25">
+          <controller config="ffc" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+    <box id="wall_north" size="15,0.1,0.5" movable="false">
+      <body position="0,7.5,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_south" size="15,0.1,0.5" movable="false">
+      <body position="0,-7.5,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_east" size="0.1,15,0.5" movable="false">
+      <body position="7.5,0,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_west" size="0.1,15,0.5" movable="false">
+      <body position="-7.5,0,0" orientation="0,0,0" />
+    </box>
+<!--
+    <distribute>
+      <position method="uniform" min="-7,-7,0" max="7,7,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="20" max_trials="100">
+        <cylinder id="cs" radius="0.15" height="0.2" movable="false" />
+      </entity>
+    </distribute>
+
+
+    <distribute>
+      <position method="uniform" min="-3,-3,0" max="3,3,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="5" max_trials="100">
+        <cylinder id="cl" radius="0.25" height="0.2" movable="false" />
+      </entity>
+    </distribute>
+
+-->
+  </arena>
+
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="leds"/>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+  
+  </visualization>
+
+</argos-configuration>
