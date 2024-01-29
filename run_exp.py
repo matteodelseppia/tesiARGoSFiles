@@ -72,7 +72,7 @@ if __name__ == "__main__":
     with open('experiments/experiment.argos', 'r') as file:
         experiment_conf = file.read()
 
-    noise = [0.2]
+    noise = [0, 0.01, 0.015, 0.05, 0.2]
     noise_deg = [0, 2, 5, 10, 20]
     sizes = [22, 56, 113, 169, 225]
     exps = []
