@@ -1,5 +1,6 @@
 # tesiARGoSFiles
 
-First, download and install (https://www.argos-sim.info/index.php)[ARGoS3].
+First, download and install [ARGoS3](https://www.argos-sim.info/index.php).
 
-Then, download the folder containing the (https://www.argos-sim.info/examples.php)[argos3-examples]. Put it in a path of your choice, called here ``$EXAMPLES_PATH``.
+Then, download the folder containing the [argos3-examples](https://www.argos-sim.info/examples.php). Put it in a path of your choice, called here ``$EXAMPLES_PATH``.
+
